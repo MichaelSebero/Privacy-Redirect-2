@@ -5,38 +5,45 @@ const targets = [
   "www.youtube.com",
   "youtube-nocookie.com",
   "www.youtube-nocookie.com",
-  "youtu.be",
   "s.ytimg.com",
   "music.youtube.com",
 ];
 /*
-    Please remember to also update the manifest.json file
-    (content_scripts > matches, 'persist-invidious-prefs.js')
-    when updating this list:
-  */
+  Please remember to also update the manifest.json file
+  (content_scripts > matches, 'persist-invidious-prefs.js')
+  when updating this list:
+*/
 const redirects = [
-  "https://invidious.snopyta.org",
-  "https://invidious.xyz",
-  "https://invidious.kavin.rocks",
-  "https://tube.connect.cafe",
-  "https://invidious.zapashcanon.fr",
-  "https://invidiou.site",
-  "https://vid.mint.lgbt",
-  "https://invidious.site",
+  "https://invidious.fdn.fr",
+  "https://invidious.nerdvpn.de",
+  "https://invidious.lunar.icu",
+  "https://invidious.io.lol",
+  "https://inv.tux.pizza",
+  "https://invidious.projectsegfau.lt",
+  "https://yt.artemislena.eu",
+  "https://vid.priv.au",
+  "https://inv.zzls.xyz",
+  "https://invidious.protokolla.fi",
+  "https://yt.oelrichsgarcia.de",
+  "https://invidious.asir.dev",
+  "https://iv.ggtyler.dev",
+  "https://iv.nboeck.de",
+  "https://inv.in.projectsegfau.lt",
+  "https://invidious.private.coffee",
+  "https://iv.datura.network",
+  "https://anontube.lvkaszus.pl",
+  "https://invidious.drgns.space",
+  "https://inv.us.projectsegfau.lt",
+  "https://invidious.perennialte.ch",
+  "https://invidious.einfachzocken.eu",
+  "https://invidious.slipfox.xyz",
+  "https://invidious.no-logs.com",
+  "https://yt.drgnz.club",
+  "https://yt.cdaut.de",
   "https://yewtu.be",
-  "https://invidious.tube",
-  "https://invidious.silkky.cloud",
-  "https://invidious.himiko.cloud",
-  "https://inv.skyn3t.in",
-  "https://tube.incognet.io",
-  "https://invidious.tinfoil-hat.net",
-  "https://invidious.namazso.eu",
+  "https://iv.melmac.space",
+  "https://invidious.privacydev.net",
   "https://vid.puffyan.us",
-  "https://dev.viewtube.io",
-  "https://invidious.048596.xyz",
-  "http://fz253lmuao3strwbfbmx46yu7acac2jz27iwtorgmbqlkurlclmancad.onion",
-  "http://c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeojqbgpea3xqjoid.onion",
-  "http://w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd.onion",
 ];
 
 export default {

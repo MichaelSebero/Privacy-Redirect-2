@@ -134,8 +134,8 @@ browser.storage.sync.get(
   (result) => {
     theme.value = result.theme || "";
     if (result.theme) document.body.classList.add(result.theme);
-    nitterInstance.value = result.nitterInstance || "";
-    invidiousInstance.value = result.invidiousInstance || "";
+    nitterInstance.value = result.nitterInstance || "https://nitter.net";
+    invidiousInstance.value = result.invidiousInstance || "https://iv.datura.network";
     bibliogramInstance.value = result.bibliogramInstance || "";
     osmInstance.value = result.osmInstance || "";
     redditInstance.value = result.redditInstance || "";

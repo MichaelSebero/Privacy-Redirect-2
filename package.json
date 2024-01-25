@@ -1,5 +1,6 @@
 {
   "name": "privacy-redirect",
+  "version": "1.4.3",
   "description": "Redirects Twitter, YouTube, Instagram and more to privacy friendly alternatives.",
   "engines": {
     "node": ">=10.0.0",
@@ -7,19 +8,24 @@
   },
   "scripts": {
     "build": "web-ext build --overwrite-dest --source-dir ./src/",
-    "test": "web-ext lint --source-dir ./src/ || true"
+    "test": "web-ext lint --source-dir ./src/ || true",
+    "dev": "web-ext run --source-dir ./src/ --firefox=\"/var/lib/flatpak/app/org.mozilla.firefox/x86_64/stable/active/files/bin/firefox\"",
+    "update-manifest-version": "node tools/updateManifestVersion.js",
+    "release": "release patch  && npm run update-manifest-version && npm run build",
+    "update-invidious": "node tools/updateInvidiousInstances.js && git commit -am \"Update Invidious instances\" && git push"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SimonBrazell/privacy-redirect.git"
+    "url": "git+https://github.com/MichaelSebero/Privacy-Redirect-2.git"
   },
-  "author": "SimonBrazell",
+  "author": "MichaelSebero",
   "license": "GPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/SimonBrazell/privacy-redirect/issues"
+    "url": "https://github.com/MichaelSebero/Privacy-Redirect-2/issues"
   },
-  "homepage": "https://github.com/SimonBrazell/privacy-redirect#readme",
+  "homepage": "https://github.com/MichaelSebero/Privacy-Redirect-2#readme",
   "devDependencies": {
-    "web-ext": "^6.2.0"
+    "release": "^1.1.6",
+    "web-ext": "^7.8.0"
   }
 }

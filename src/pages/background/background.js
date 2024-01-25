@@ -276,6 +276,12 @@ function redirectYouTube(url, initiator, type) {
   if (useFreeTube && type === "main_frame") {
     return `freetube://${url}`;
   }
+  if (url.host === "youtu.be" && !url.searchParams.has("v")) {
+    // add the video id of shortened if from the path, to the search params
+    url.searchParams.append("v", url.pathname.replace("/", "")); // only works as long as video id's can't contain "/"
+    url.searchParams.delete("si");
+    url.pathname = "/watch";
+  }
   // Apply settings
   if (alwaysProxy) {
     url.searchParams.append("local", true);
@@ -299,9 +305,11 @@ function redirectYouTube(url, initiator, type) {
     url.searchParams.append("autoplay", 1);
   }
 
+  console.log(invidiousInstance);
+
   return `${
     invidiousInstance || commonHelper.getRandomInstance(invidiousRandomPool)
-  }${url.pathname.replace("/shorts", "")}${url.search}`;
+  }${url.pathname}${url.search}`;
 }
 
 function redirectTwitter(url, initiator) {
@@ -325,15 +333,15 @@ function redirectTwitter(url, initiator) {
   }
   if (url.host.split(".")[0] === "pbs" || url.host.split(".")[0] === "video") {
     return `${
-      nitterInstance || commonHelper.getRandomInstance(nitterRandomPool)
+      nitterInstance || getRandomInstance(nitterRandomPool)
     }/pic/${encodeURIComponent(url.href)}`;
   } else if (url.pathname.split("/").includes("tweets")) {
     return `${
-      nitterInstance || commonHelper.getRandomInstance(nitterRandomPool)
+      nitterInstance || getRandomInstance(nitterRandomPool)
     }${url.pathname.replace("/tweets", "")}${url.search}`;
   } else {
     return `${
-      nitterInstance || commonHelper.getRandomInstance(nitterRandomPool)
+      nitterInstance || getRandomInstance(nitterRandomPool)
     }${url.pathname}${url.search}`;
   }
 }
@@ -629,6 +637,8 @@ browser.webRequest.onBeforeRequest.addListener(
       );
       console.info("Details", details);
     }
+
+    console.log(redirect);
     return redirect;
   },
   {
@@ -656,6 +666,31 @@ browser.runtime.onInstalled.addListener((details) => {
           disableWikipedia: true,
         });
       }
+      if (result.disableBibliogram === undefined) {
+        browser.storage.sync.set({
+          disableBibliogram: true,
+        });
+      }
+      if (result.disableReddit === undefined) {
+        browser.storage.sync.set({
+          disableReddit: true,
+        });
+      }
+      if (result.disableOsm === undefined) {
+        browser.storage.sync.set({
+          disableOsm: true,
+        });
+      }
+      if (!result.invidiousInstance) {
+        browser.storage.sync.set({
+          invidiousInstance: "https://iv.datura.network",
+        });
+      }
+      if (!result.nitterInstance) {
+        browser.storage.sync.set({
+          nitterInstance: "https://nitter.net",
+        });
+      }
     }
   );
   if (details.reason === "update") {
@@ -669,11 +704,6 @@ browser.runtime.onInstalled.addListener((details) => {
           browser.storage.sync.set({
             exceptions: result.exceptions.concat(whitelist),
             whitelist: null,
-          });
-        }
-        if (result.invidiousInstance === "https://invidio.us") {
-          browser.storage.sync.set({
-            invidiousInstance: null,
           });
         }
       }
